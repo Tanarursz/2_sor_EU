@@ -1,27 +1,2 @@
-bananido = open("EUcsatlakozas.txt", "r")
-
-tomb=[]
-for sor in bananido:
-    tomb.append(sor.strip().split(";"))
-    
-bananido.close()
-
-# 3.
-print(f"3. feladat: EU tagállamainak száma: {len(tomb)} db")
-
-# 4. 2007-ben
-szamlalo = 0 
-for sor in tomb:
-    if (sor[1][0:4]) == "2007":
-        szamlalo = szamlalo +1
-        
-print(f"4. feladat: 2007-ben {szamlalo} ország csatlakozott.")
-
-# 5. Magyarország dátum
-
-for sor in tomb:
-    if (sor[0]) == "Magyarország":
-        magyarorszag = sor
-        
-print(f"5. feladat: Magyarország {sor[1]} ország csatlakozott.")
-
+from collections import Counter
+with open("EUcsatlakozas.txt") as f:    lista = [sor.strip().split(";") for sor in f];print(f"3.feladat: EU tagállamainak száma: {len([sor for sor in lista])} db \n4.feladat: 2007-ben {len([sor for sor in lista if sor[1][0:4] == '2007'])} ország csatlakozott. \n5.feladat: Magyarország csatlakozásának dátuma: {[sor[1] for sor in lista if sor[0] == 'Magyarország'][0]} \n6.feladat: Májusban {'van' if [True for sor in lista if sor[1][5:7] == '05'] else 'nincs'} csatlakozás! \n7.feladat: Legutoljára csatlakozott ország: {[sor for sor in lista if max([sor[1] for sor in lista]) == sor[1]][0][0]}");print("8.feladat: Statisztika  \n{}".format('\n'.join([f'{ev} - {db} ország' for ev, db in [Counter(sor[1][0:4] for sor in lista)][0].items()])))
